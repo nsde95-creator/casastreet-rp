@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>EMDEN CASA STREET_RP — التسجيل والرتب</title>
+<style>
+  :root{
+    --accent:#6c26c9;
+    --muted:#0d0e0c;
+    --card-bg:#f8f6f6;
+    --page-bg:#f7f3f3;
+    --shadow:0 8px 30px rgba(247, 7, 7, 0.08);
+  }
+  html,body{height:100%;margin:0;background:var(--page-bg);font-family:Arial,Helvetica,sans-serif;color:#222}
+  .wrap{max-width:1100px;margin:28px auto;padding:20px}
+  header{display:flex;align-items:center;gap:16px;justify-content:center;margin-bottom:18px}
+  header img{width:84px;height:84px;border-radius:14px;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  h1{font-size:22px;margin:0;text-align:center}
+  .grid{display:grid;grid-template-columns:1fr;gap:18px}
+  @media(min-width:900px){ .grid{grid-template-columns:1fr 420px} }
+
+  .card{background:var(--card-bg);border-radius:12px;padding:18px;box-shadow:var(--shadow);text-align:right}
+  .card h2{margin:0 0 12px 0;color:#111}
+  label{display:block;margin:8px 0 6px;font-size:14px;color:var(--muted)}
+  input[type="text"], input[type="number"], textarea, select{
+    width:100%;padding:10px;border-radius:8px;border:1px solid #e3e6e6;font-size:15px;box-sizing:border-box
+  }
+  textarea{min-height:110px;resize:vertical}
+  .btn{display:inline-block;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:800;background:var(--accent);color:#061103;box-shadow:0 8px 22px rgba(13,191,95,0.12)}
+  .btn.secondary{background:#fff;color:var(--accent);border:1px solid rgba(13,191,95,0.12);font-weight:700}
+  .steps{text-align:center;margin-bottom:6px;color:var(--muted);font-size:14px}
+
+  /* Social + roles area */
+  .socials{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+  .socials a{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none;font-weight:700}
+  .s-youtube{background:#FF0000} .s-discord{background:#5865F2} .s-kick{background:#000} .s-insta{background:#C13584}
+
+  .roles{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+  .role-btn{padding:12px 16px;border-radius:10px;background:#222;color:#fff;font-weight:800;cursor:pointer;border:0}
+  .role-btn.admin{background:linear-gradient(180deg,#ff6b6b,#ff3b3b)} .role-btn.police{background:#007bff}
+  .role-btn.taxi{background:#ffc107;color:#111} .role-btn.central{background:linear-gradient(180deg,#ffd54a,#ffb300);color:#111}
+  .muted{color:var(--muted);font-size:13px}
+
+  .center{text-align:center}
+  .hidden{display:none !important}
+  footer{margin-top:22px;text-align:center;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <!-- ضع شعارك في نفس مجلد الصفحة باسم logo.png أو غيّر المسار -->
+    <img src="Capture d’écran (599).png" alt="شعار EMDEN CASA" onerror="this.style.display='none'">
+    <div>
+      <h1>EMDEN CASA STREET_RP — النظام الرسمي للتسجيل والرتب</h1>
+      <div class="steps">التسلسل: الهوية → القوانين → التعليقات → السوشيال → التقديمات</div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- العمود الأيسر: نماذج / قواعد / تعليقات -->
+    <div>
+
+      <!-- 1) الهوية -->
+      <section id="step-identity" class="card">
+        <h2>🆔 ملأ بيانات الهوية</h2>
+        <p class="muted">املأ بياناتك بدقة. بعد الإرسال ستظهر لك القوانين.</p>
+
+        <label>الاسم والنسب</label>
+        <input id="fullName" type="text" placeholder="مثال: محمد أحمد">
+
+        <label>العمر</label>
+        <input id="age" type="number" placeholder="مثال: 21">
+
+        <label>الدولة</label>
+        <select id="country">
+          <option value="">اختر الدولة أو اكتبها</option>
+          <option>المملكة العربية السعودية</option>
+          <option>المغرب</option>
+          <option>مصر</option>
+          <option>الإمارات</option>
+          <option>تونس</option>
+          <option>ليبيا</option>
+          <option>الجزائر</option>
+          <option>اجنبي </option>
+          <option>عربي</option>
+          <option></option>
+          label>اكتب دولتك</label>
+        <input id="fullName" type="text" placeholder="مثال:  المغرب">
+
+        </select>
+
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <button id="submitID" class="btn">إرسال الهوية</button>
+          <button id="resetID" class="btn secondary" onclick="resetIdentity()">مسح الحقول</button>
+        </div>
+      </section>
+
+      <!-- 2) القوانين (مخفي افتراضياً) -->
+      <section id="step-rules" class="card hidden">
+        <h2>📜 قوانين السيرفر — يرجى القراءة</h2>
+        <div id="rulesContent" style="text-align:right;line-height:1.7;color:#222">
+          🧍‍♂️ <strong>1. الاحترام</strong><br>
+          احترام جميع الأعضاء بدون استثناء. يمنع العنصرية أو التمييز. احترام الإدارة.<br><br>
+
+          🚫 <strong>2. السب والشتم</strong><br>
+          ممنوع السب أو الشتم بأي شكل. اللغة البذيئة تؤدي لخطوات عقابية.<br><br>
+
+          📢 <strong>3. السبام</strong><br>
+          يمنع تكرار الرسائل أو الإيموجيات بشكل عشوائي. المنشن الجماعي ممنوع بدون إذن.<br><br>
+
+          🚫 <strong>4. الخصوصية</strong><br>
+          يمنع نشر روابط خادعة أو طلب/مشاركة معلومات شخصية.<br><br>
+
+          🧩 <strong>5. السلوك داخل اللعبة</strong><br>
+          الالتزام بالشخصية وعدم استغلال الثغرات أو الغش.<br><br>
+
+          📷 <strong>6. الميديا والمحتوى</strong><br>
+          ممنوع نشر محتوى غير لائق أو إعلانات بدون إذن.<br><br>
+
+          🛠️ <strong>7. الإدارة والرتب</strong><br>
+          يمنع طلب الرتب أو الصلاحيات. قرارات الإدارة نهائية.<br><br>
+
+          👥 <strong>8. التعامل مع الجدد</strong><br>
+          التعامل بلطف وعدم الاستغلال.<br><br>
+
+          🔥 <strong>عدم الالتزام بالقوانين يؤدي إلى طرد نهائي.</strong>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:12px">
+          <button id="acceptRulesBtn" class="btn">أوافق على القوانين</button>
+          <button id="backToID" class="btn secondary">العودة لتعديل الهوية</button>
+        </div>
+      </section>
+
+      <!-- 3) التعليقات (مخفي افتراضياً) -->
+      <section id="step-comment" class="card hidden">
+        <h2>💬 التعليقات — اترك اسمك وID وتعليقك</h2>
+        <p class="muted">بعد الإرسال ستظهر روابط التواصل والرتب.</p>
+
+        <label>الاسم</label>
+        <input id="commentName" type="text" placeholder="اسمك">
+
+        <label>ID</label>
+        <input id="commentID" type="text" placeholder="مثال: 1378061231595720714">
+
+        <label>التعليق</label>
+        <textarea id="commentText" placeholder="ضع تعليقك هنا"></textarea>
+
+        <div style="display:flex;gap:12px;margin-top:12px">
+          <button id="submitCommentBtn" class="btn">إرسال التعليق</button>
+          <button id="skipCommentBtn" class="btn secondary">تخطى وآرني الروابط</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- العمود الأيمن: السوشيال + رتب + ملخص الهوية -->
+    <div>
+
+      <!-- بطاقة ملخص الهوية صغيرة -->
+      <aside class="card" id="summaryCard">
+        <h2>ملفك الحالي</h2>
+        <div style="text-align:right;line-height:1.6">
+          <div><strong>الاسم:</strong> <span id="s_name">-</span></div>
+          <div><strong>العمر:</strong> <span id="s_age">-</span></div>
+          <div><strong>الدولة:</strong> <span id="s_country">-</span></div>
+        </div>
+      </aside>
+
+      <!-- السوشيال ميديا (مخفي حتى النهاية) -->
+      <section id="socialsCard" class="card hidden">
+        <h2>📱 تابعنا على وسائل التواصل</h2>
+        <div class="socials" style="justify-content: center;">
+          <a class="s-youtube" href="https://www.youtube.com/@casastreetemden" target="_blank" rel="noopener">📺 YouTube</a>
+          <a class="s-discord" href="https://discord.gg/XTtMwMyn" target="_blank" rel="noopener">💬 Discord</a>
+          <a class="s-kick" href="https://kick.com/y7y9" target="_blank" rel="noopener">🎮 Kick</a>
+          <a class="s-insta" href="https://www.instagram.com/f.lm95/" target="_blank" rel="noopener">📸 Instagram</a>
+        </div>
+        <p class="muted center" style="margin-top:10px">اضغط على أي أيقونة للانتقال لصفحتنا</p>
+      </section>
+
+      <!-- رتب / تقديمات (مخفي افتراضياً حتى عرض السوشيال) -->
+      <section id="rolesCard" class="card hidden">
+        <h2>🛡️ التقديمات والرتب</h2>
+        <p class="muted">اختر الرتبة واضغط للتقديم — ستُطلب منك معلومات أساسية ثم تُرسَل للديسكورد.</p>
+
+        <div class="roles" style="margin-top:10px">
+          <button class="role-btn admin" data-role="ADMIN">ADMIN</button>
+          <button class="role-btn police" data-role="POLICE">POLICE</button>
+          <button class="role-btn taxi" data-role="TAXI">TAXI</button>
+          <button class="role-btn central" data-role="CENTRAL BANK">CENTRAL BANK</button>
+          <button class="role-btn justice" data-role="JUSTICE">JUSTICE</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="center" style="margin-top:18px;color:var(--muted)">
+    © حقوق الموقع — EMDEN CASA STREET_RP
+  </footer>
+</div>
+
+<script>
+/* ====== روابط Webhooks ====== */
+const webhookID = "https://discord.com/api/webhooks/1429582048380846110/FgHi4A_HUfoxwMaXeFtpxahuNK9PSUwT6RnZBW1UYd5Df5AZ32HeQF6pURRLXBesvIBR";
+const webhookComment = "https://discord.com/api/webhooks/1429592119634563164/KyGgWDl8VNdAi4eNyX2KCXRcQFMbCVhf-DvjtoOOf8PhBYN-JC7ncYW4PiaAtADPcksH";
+const webhookPolice = "https://discord.com/api/webhooks/1429589209080926462/ox8Nqt4rGBH9QAXsBjM4Dnp2XSuaBnBYjjCBFRvDdKsD8OlQRaRQIhbEXadMnKGJW54D";
+const webhookTaxi = "https://discord.com/api/webhooks/1429588956055601172/TKNtEr9p98GDuRP5ALyOjaBGen0DsRW1KdbgJvkiilScUEltihCQLDUo9W39NfT4fMo3";
+const webhookAdmin = "https://discord.com/api/webhooks/1429589541072928768/-OafCzujZV82_Jy_F7Ummm_tJ7L8lbEajoOyKX4ALyNgS5PkJDBH21uBNwwgiD0h3-8o";
+const webhookCentral = "https://discord.com/api/webhooks/1429589997723582656/-SuqzV11SAPCFZR3SWSMxszz4OtfQ2W7416YLbEI8jmbS-Bi62Ic78uQbjZW1VDQBmuZ";
+const webhookJustice = "https://discord.com/api/webhooks/1429594279285620897/N8lnpW4qrB6cUciFiJ-QJtgsFfpX8hK1DLyBsFiHkszZINyuaLNRB7mMlwHwXvYDGPUD";
+
+/* ====== عناصر DOM ====== */
+const stepIdentity = document.getElementById('step-identity');
+const stepRules = document.getElementById('step-rules');
+const stepComment = document.getElementById('step-comment');
+const socialsCard = document.getElementById('socialsCard');
+const rolesCard = document.getElementById('rolesCard');
+const summaryName = document.getElementById('s_name');
+const summaryAge = document.getElementById('s_age');
+const summaryCountry = document.getElementById('s_country');
+
+/* ====== مساعدة إرسال للويبهوك ====== */
+async function sendToWebhook(url, content){
+  try{
+    await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({content})
+    });
+    return true;
+  } catch(e){
+    console.error('Webhook error', e);
+    return false;
+  }
+}
+
+/* ====== هوية: إرسال + إظهار القوانين ====== */
+document.getElementById('submitID').addEventListener('click', async ()=>{
+  const name = document.getElementById('fullName').value.trim();
+  const age = document.getElementById('age').value.trim();
+  const country = document.getElementById('country').value.trim();
+  if(!name || !age || !country) return alert('الرجاء تعبئة جميع حقول الهوية');
+
+  // تحديث ملخص
+  summaryName.innerText = name;
+  summaryAge.innerText = age;
+  summaryCountry.innerText = country;
+
+  const content = `🆔 **هوية المستخدم**
+- الاسم والنسب: ${name}
+- العمر: ${age}
+- الدولة: ${country}`;
+
+  const ok = await sendToWebhook(webhookID, content);
+  if(!ok) return alert('فشل الاتصال بالـ Discord (الهوية). حاول لاحقًا.');
+  alert('✅ تم إرسال الهوية! الآن يرجى قراءة القوانين والموافقة عليها.');
+
+  stepIdentity.classList.add('hidden');
+  stepRules.classList.remove('hidden');
+});
+
+/* زر العودة لتعديل الهوية */
+document.getElementById('backToID').addEventListener('click', ()=>{
+  stepRules.classList.add('hidden');
+  stepIdentity.classList.remove('hidden');
+});
+
+/* قبول القوانين */
+document.getElementById('acceptRulesBtn').addEventListener('click', ()=>{
+  stepRules.classList.add('hidden');
+  stepComment.classList.remove('hidden');
+});
+
+/* تخطي التعليق وإظهار السوشيال فوراً */
+document.getElementById('skipCommentBtn').addEventListener('click', ()=>{
+  stepComment.classList.add('hidden');
+  socialsCard.classList.remove('hidden');
+  rolesCard.classList.remove('hidden');
+});
+
+/* إرسال التعليق */
+document.getElementById('submitCommentBtn').addEventListener('click', async ()=>{
+  const cname = document.getElementById('commentName').value.trim();
+  const cid = document.getElementById('commentID').value.trim();
+  const ctext = document.getElementById('commentText').value.trim();
+  if(!cname || !cid || !ctext) return alert('الرجاء تعبئة جميع حقول التعليق');
+
+  const content = `💬 **تعليق المستخدم**
+- الاسم: ${cname}
+- ID: ${cid}
+- التعليق: ${ctext}`;
+
+  const ok = await sendToWebhook(webhookComment, content);
+  if(!ok) return alert('فشل الاتصال بالـ Discord (التعليق). حاول لاحقًا.');
+
+  alert('✅ تم إرسال التعليق! الآن ستظهر روابط التواصل والرتب.');
+  document.getElementById('commentName').value='';
+  document.getElementById('commentID').value='';
+  document.getElementById('commentText').value='';
+
+  stepComment.classList.add('hidden');
+  socialsCard.classList.remove('hidden');
+  rolesCard.classList.remove('hidden');
+});
+
+/* ====== التقديمات/الرتب: إرسال لكل Webhook خاص ====== */
+document.querySelectorAll('.role-btn').forEach(btn=>{
+  btn.addEventListener('click', async ()=>{
+    const role = btn.dataset.role || btn.textContent.trim();
+    // نطلب البيانات الأساسية
+    const name = prompt(`الاسم الكامل لتقديم رتبة ${role}:`);
+    if(!name) return alert('مطلوب الاسم');
+    const age = prompt('العمر:'); if(!age) return alert('مطلوب العمر');
+    const roblox = prompt('اسمك في روبلوكس: (إن وجد)') || '-';
+    const country = prompt('الدولة:') || '-';
+    const reason = prompt('لماذا ترغب بهذه الرتبة؟ (سبب مختصر)'); if(!reason) return alert('مطلوب السبب');
+
+    // نحدد الويبهوك حسب الرتبة
+    let url = null;
+    if(role.toUpperCase().includes('POLICE')) url = webhookPolice;
+    else if(role.toUpperCase().includes('TAXI')) url = webhookTaxi;
+    else if(role.toUpperCase().includes('ADMIN')) url = webhookAdmin;
+    else if(role.toUpperCase().includes('CENTRAL')) url = webhookCentral;
+    else if(role.toUpperCase().includes('JUSTICE')) url = webhookJustice;
+
+    if(!url) return alert('لا يوجد Webhook مضبوط لهذه الرتبة');
+
+    const content = `**تقديم رتبة: ${role}**
+- الاسم: ${name}
+- العمر: ${age}
+- روبلوكس: ${roblox}
+- الدولة: ${country}
+- السبب: ${reason}`;
+
+    const ok = await sendToWebhook(url, content);
+    if(!ok) return alert('فشل الإرسال — تأكد من الاتصال أو روابط الـ Webhook.');
+    alert('✅ تم إرسال طلب التقديم بنجاح!');
+  });
+});
+
+/* ====== إعادة الهوية (مسح الحقول) ====== */
+function resetIdentity(){
+  document.getElementById('fullName').value='';
+  document.getElementById('age').value='';
+  document.getElementById('country').value='';
+  summaryName.innerText='-';
+  summaryAge.innerText='-';
+  summaryCountry.innerText='-';
+}
+</script>
+</body>
+</html>
